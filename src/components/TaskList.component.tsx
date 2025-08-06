@@ -8,7 +8,7 @@ const TaskList = () => {
   };
 
   const removeLastTask = () => {
-    setTasks((tasks) => tasks.filter((item, idx) => idx !== tasks.length - 1));
+    setTasks((tasks) => tasks.filter((_, idx) => idx !== tasks.length - 1));
   };
 
   return (
