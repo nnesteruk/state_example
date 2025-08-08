@@ -12,7 +12,15 @@ const InputCount = ({
   };
 
   return (
-    <div style={{ display: "flex", gap: 10 }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20,
+        gap: 10,
+      }}
+    >
       <p>Показать</p>
       <input
         type="number"
@@ -22,10 +30,11 @@ const InputCount = ({
         onChange={handleChange}
         style={{
           width: 50,
+          height: 30,
           padding: 5,
           border: "1px solid",
           borderRadius: 5,
-          fontSize: 18,
+          fontSize: 16,
         }}
       />
       <button onClick={loadImages}>Обновить</button>
