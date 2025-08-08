@@ -1,12 +1,11 @@
-import { Suspense } from "react";
-
 export const ImageList = ({
   images,
 }: {
   images: { id: number; src: string }[] | null;
 }) => {
   return (
-    <Suspense fallback={<div>Загрузка...</div>}>
+    <>
+      {!images && <p>Загрузка...</p>}
       <div
         style={{
           display: "grid",
@@ -23,6 +22,6 @@ export const ImageList = ({
           />
         ))}
       </div>
-    </Suspense>
+    </>
   );
 };
