@@ -2,11 +2,7 @@ import "./App.css";
 import Gallery from "./components/Gallery.component";
 
 const App = () => {
-  return (
-    <>
-      <Gallery />
-    </>
-  );
+  return <Gallery />;
 };
 
 export default App;
