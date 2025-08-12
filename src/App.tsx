@@ -1,8 +1,19 @@
+import { useState } from "react";
 import "./App.css";
-import Gallery from "./components/Gallery.component";
+import Lifecycle from "./components/LifeCycle.component";
+import LifecycleFunc from "./components/LifecycleFunc.component";
 
 const App = () => {
-  return <Gallery />;
+  const [show, setShow] = useState(true);
+
+  return (
+    <div style={{ display: "flex", gap: "20px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {show ? <Lifecycle /> : <LifecycleFunc />}
+        <button onClick={() => setShow(!show)}>Unmount</button>
+      </div>
+    </div>
+  );
 };
 
 export default App;
