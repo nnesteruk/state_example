@@ -13,6 +13,8 @@ const App = () => {
     { id: 2, name: "Task 2" },
     { id: 3, name: "Task 3" },
   ]);
+  const [text, setText] = useState<string>("");
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const updateTask = (id: number) => {
@@ -30,10 +32,23 @@ const App = () => {
     return;
   };
 
+  const inputClick = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setTasks((tasks) => [...tasks, { id: tasks.length + 1, name: text }]);
+      setText("");
+    }
+    return;
+  };
+
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <input ref={inputRef} />
+        <input
+          ref={inputRef}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={inputClick}
+        />
         <button onClick={focusClick}>focus input</button>
       </div>
       <List tasks={tasks} updateTask={updateTask} />
