@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import Lifecycle from "./components/LifeCycle.component";
+import Lifecycle from "./components/Lifecycle.component";
 import LifecycleFunc from "./components/LifecycleFunc.component";
 
 const App = () => {

@@ -8,7 +8,7 @@ class Lifecycle extends React.Component<unknown, { count: number }> {
 
   componentDidMount() {
     console.log("Component Did Mount");
-    fetch("https://todo-redev.herokuapp.com/api/users")
+    fetch("https://todo-redev.herokuapp.com/api/users/1")
       .then((res) => res.json())
       .then((data) => console.log(data));
   }
