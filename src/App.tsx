@@ -2,13 +2,13 @@ import { useRef, useState } from "react";
 import "./App.css";
 import List from "./components/List.component";
 
-export type Tasks = {
+export type Task = {
   id: number;
   name: string;
 };
 
 const App = () => {
-  const [tasks, setTasks] = useState<Tasks[]>([
+  const [tasks, setTasks] = useState<Task[]>([
     { id: 1, name: "Task 1" },
     { id: 2, name: "Task 2" },
     { id: 3, name: "Task 3" },

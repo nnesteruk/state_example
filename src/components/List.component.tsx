@@ -1,10 +1,10 @@
-import type { Tasks } from "../App";
+import type { Task } from "../App";
 
 const List = ({
   tasks,
   updateTask,
 }: {
-  tasks: Tasks[];
+  tasks: Task[];
   updateTask: (id: number) => void;
 }) => {
   return (
