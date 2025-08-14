@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
-import List from "./components/List.component";
+import CounterButton from "./components/Counter.component";
+import List from "./components/ItemList.component";
+import SearchInput from "./components/SearchInput.component";
 
 export type Task = {
   id: number;
@@ -8,13 +10,20 @@ export type Task = {
 };
 
 const App = () => {
+  const [searchText, setSearchText] = useState("");
+  const [count, setCount] = useState(0);
+
   const [tasks, setTasks] = useState<Task[]>([
     { id: 1, name: "Task 1" },
     { id: 2, name: "Task 2" },
     { id: 3, name: "Task 3" },
   ]);
 
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [filterTasks, setFilterTasks] = useState(tasks);
+
+  useEffect(() => {
+    searchTask(searchText);
+  }, [searchText]);
 
   const updateTask = (id: number) => {
     setTasks((tasks) =>
@@ -24,31 +33,34 @@ const App = () => {
     );
   };
 
-  const focusClick = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-    return;
+  const incCount = () => {
+    setCount((count) => count + 1);
   };
 
-  const inputClick = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputRef.current) {
-      const value = inputRef.current.value;
-
-      setTasks((tasks) => [...tasks, { id: tasks.length + 1, name: value }]);
-      inputRef.current.value = "";
+  const changeSearchText = useCallback((text: string) => {
+    setSearchText(text);
+  }, []);
+  const searchTask = (text: string) => {
+    if (searchText.trim() !== "") {
+      setFilterTasks((tasks) =>
+        tasks.filter((item) =>
+          item.name.toLowerCase().includes(text.toLowerCase()),
+        ),
+      );
+    } else {
+      setFilterTasks(tasks);
     }
-
-    return;
   };
 
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <input ref={inputRef} onKeyDown={inputClick} />
-        <button onClick={focusClick}>focus input</button>
-      </div>
-      <List tasks={tasks} updateTask={updateTask} />
+      <h1>{count}</h1>
+      <CounterButton incCount={incCount} />
+      <SearchInput
+        searchText={searchText}
+        changeSearchText={changeSearchText}
+      />
+      <List tasks={filterTasks} updateTask={updateTask} />
     </div>
   );
 };

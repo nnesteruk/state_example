@@ -1,6 +1,6 @@
 import type { Task } from "../App";
 
-const List = ({
+const ItemList = ({
   tasks,
   updateTask,
 }: {
@@ -22,4 +22,4 @@ const List = ({
   );
 };
 
-export default List;
+export default ItemList;
