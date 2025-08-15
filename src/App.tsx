@@ -28,7 +28,7 @@ const App = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <h1>{count}</h1>
         <CounterButton incCount={incCount} />
