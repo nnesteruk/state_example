@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const SearchInput = ({
   searchText,
   changeSearchText,
@@ -5,6 +7,8 @@ const SearchInput = ({
   searchText: string;
   changeSearchText: (text: string) => void;
 }) => {
+  console.log("render SearchInput");
+
   return (
     <div>
       <input
@@ -16,4 +20,4 @@ const SearchInput = ({
   );
 };
 
-export default SearchInput;
+export default memo(SearchInput);

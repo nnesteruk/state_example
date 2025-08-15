@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import "./App.css";
 import CounterButton from "./components/Counter.component";
 import List from "./components/ItemList.component";
@@ -19,48 +19,25 @@ const App = () => {
     { id: 3, name: "Task 3" },
   ]);
 
-  const [filterTasks, setFilterTasks] = useState(tasks);
-
-  useEffect(() => {
-    searchTask(searchText);
-  }, [searchText]);
-
-  const updateTask = (id: number) => {
-    setTasks((tasks) =>
-      tasks.map((item) =>
-        item.id === id ? { ...item, name: "!!!" + item.name } : item,
-      ),
-    );
-  };
-
-  const incCount = () => {
+  const incCount = useCallback(() => {
     setCount((count) => count + 1);
-  };
+  }, []);
 
   const changeSearchText = useCallback((text: string) => {
     setSearchText(text);
   }, []);
-  const searchTask = (text: string) => {
-    if (searchText.trim() !== "") {
-      setFilterTasks((tasks) =>
-        tasks.filter((item) =>
-          item.name.toLowerCase().includes(text.toLowerCase()),
-        ),
-      );
-    } else {
-      setFilterTasks(tasks);
-    }
-  };
 
   return (
-    <div>
-      <h1>{count}</h1>
-      <CounterButton incCount={incCount} />
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <h1>{count}</h1>
+        <CounterButton incCount={incCount} />
+      </div>
       <SearchInput
         searchText={searchText}
         changeSearchText={changeSearchText}
       />
-      <List tasks={filterTasks} updateTask={updateTask} />
+      <List tasks={tasks} searchText={searchText} />
     </div>
   );
 };
