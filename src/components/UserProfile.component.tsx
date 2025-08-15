@@ -1,6 +1,7 @@
 import { useState } from "react";
+import UserInfo from "./UserInfo.component";
 
-type User = {
+export type User = {
   name: string;
   age: number;
   isActive: boolean;
@@ -34,10 +35,7 @@ const UserProfile = () => {
         textAlign: "left",
       }}
     >
-      <h3>Профиль пользователя</h3>
-      <p>Имя: {user.name}</p>
-      <p>Возраст: {user.age}</p>
-      <p>Активен: {user.isActive ? "Да" : "Нет"}</p>
+      <UserInfo user={user} />
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <button onClick={changeName}>Сменить имя</button>
         <button onClick={incrementAge}>Увеличить возраст</button>
