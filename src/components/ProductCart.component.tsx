@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CartItem from "./CartItem.component";
 
 const ProductCart = () => {
   const [cart, setCart] = useState([
@@ -34,22 +35,12 @@ const ProductCart = () => {
       <h3>Корзина товаров</h3>
       <ul style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {cart.map((item) => (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 10,
-            }}
-          >
-            <li>
-              {item.title} (Кол-во: {item.count})
-            </li>
-            <div style={{ display: "flex", gap: 10 }}>
-              <button onClick={() => incCountProduct(item.id)}>+1</button>
-              <button onClick={() => deleteProduct(item.id)}>Удалить</button>
-            </div>
-          </div>
+          <CartItem
+            item={item}
+            incCountProduct={incCountProduct}
+            deleteProduct={deleteProduct}
+            key={item.id}
+          />
         ))}
       </ul>
       <button onClick={clearCart} style={{ width: "100%" }}>

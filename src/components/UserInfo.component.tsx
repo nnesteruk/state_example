@@ -2,6 +2,8 @@ import { memo } from "react";
 import type { User } from "./UserProfile.component";
 
 const UserInfo = ({ user }: { user: User }) => {
+  console.log("render user");
+
   return (
     <>
       <h3>Профиль пользователя</h3>
@@ -13,5 +15,9 @@ const UserInfo = ({ user }: { user: User }) => {
 };
 
 export default memo(UserInfo, (prevProps, nextProps) => {
-  return prevProps.user.name === nextProps.user.name;
+  return (
+    prevProps.user.name === nextProps.user.name &&
+    prevProps.user.age === nextProps.user.age &&
+    prevProps.user.isActive === nextProps.user.isActive
+  );
 });

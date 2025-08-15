@@ -1,10 +1,17 @@
 import { useState } from "react";
+import TaskItem from "./TaskItem.component";
 
 const TaskList = () => {
-  const [tasks, setTasks] = useState(["Купить хлеб", "Погулять с собакой"]);
+  const [tasks, setTasks] = useState([
+    { id: 1, title: "Купить хлеб" },
+    { id: 2, title: "Погулять с собакой" },
+  ]);
 
   const addTask = () => {
-    setTasks((tasks) => [...tasks, "Новая задача"]);
+    setTasks((tasks) => [
+      ...tasks,
+      { id: tasks.length + 1, title: "Новая задача" },
+    ]);
   };
 
   const removeLastTask = () => {
@@ -22,8 +29,8 @@ const TaskList = () => {
     >
       <h3>Список задач</h3>
       <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>{task}</li>
+        {tasks.map((task) => (
+          <TaskItem task={task} key={task.id} />
         ))}
       </ul>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
