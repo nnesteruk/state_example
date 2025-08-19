@@ -9,8 +9,6 @@ const CartItem = ({
   incCountProduct: (id: number) => void;
   deleteProduct: (id: number) => void;
 }) => {
-  console.log("render cart");
-
   return (
     <div
       style={{

@@ -2,8 +2,6 @@ import { memo } from "react";
 import type { User } from "./UserProfile.component";
 
 const UserInfo = ({ user }: { user: User }) => {
-  console.log("render user");
-
   return (
     <>
       <h3>Профиль пользователя</h3>

@@ -1,7 +1,6 @@
 import { memo } from "react";
 
 const TaskItem = ({ task }: { task: { id: number; title: string } }) => {
-  console.log("render item");
   return <li>{task.title}</li>;
 };
 
