@@ -1,13 +1,18 @@
 import { useCallback, useState } from "react";
 import "./App.css";
 import CounterButton from "./components/Counter.component";
-import List from "./components/ItemList.component";
+import ItemList from "./components/ItemList.component";
 import SearchInput from "./components/SearchInput.component";
+import withRenderTracker from "./hoc/WithRenderTracker";
 
 export type Task = {
   id: number;
   name: string;
 };
+
+const ItemListWithRenderTracker = withRenderTracker(ItemList);
+const SearchInputWithRenderTracker = withRenderTracker(SearchInput);
+const CounterButtonWithRenderTracker = withRenderTracker(CounterButton);
 
 const App = () => {
   const [searchText, setSearchText] = useState("");
@@ -31,13 +36,13 @@ const App = () => {
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <h1>{count}</h1>
-        <CounterButton incCount={incCount} />
+        <CounterButtonWithRenderTracker incCount={incCount} />
       </div>
-      <SearchInput
+      <SearchInputWithRenderTracker
         searchText={searchText}
         changeSearchText={changeSearchText}
       />
-      <List tasks={tasks} searchText={searchText} />
+      <ItemListWithRenderTracker tasks={tasks} searchText={searchText} />
     </div>
   );
 };

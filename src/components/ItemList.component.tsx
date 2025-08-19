@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import type { Task } from "../App";
 
 const ItemList = ({
@@ -16,8 +16,6 @@ const ItemList = ({
     [tasks, searchText],
   );
 
-  console.log("render list");
-
   return (
     <ul style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
       {filteredTasks.length === 0 && (
@@ -33,4 +31,4 @@ const ItemList = ({
   );
 };
 
-export default memo(ItemList);
+export default ItemList;
