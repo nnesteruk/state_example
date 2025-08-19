@@ -82,3 +82,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.header {
+  color: var(--text-color);
+}
+
+.profile {
+  color: var(--text-color);
+}
