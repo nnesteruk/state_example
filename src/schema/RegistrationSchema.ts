@@ -21,7 +21,7 @@ export const registrationSchema = z
         "Пароль должен содержать как минимум одну заглавную букву",
       ),
     confirmPassword: z.string(),
-    dateOfBirth: z.coerce.date(),
+    dateOfBirth: z.date(),
     gender: z.enum(GenderEnum, "Выберите пол"),
     phoneNumber: z
       .string()

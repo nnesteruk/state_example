@@ -1,23 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { GenderEnum, registrationSchema } from "../schema/RegistrationSchema";
+import Input from "./Input.component";
 
-type FormValues = {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  dateOfBirth: Date;
-  gender: (typeof GenderEnum)[keyof typeof GenderEnum];
-  phoneNumber: string;
-};
+type FormValues = z.infer<typeof registrationSchema>;
 
 const RegistrationForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(registrationSchema) });
+  } = useForm<FormValues>({ resolver: zodResolver(registrationSchema) });
 
   const onSubmit = (data: FormValues) => {
     console.log(data);
@@ -33,26 +27,33 @@ const RegistrationForm = () => {
       <div>
         <label htmlFor="username">Имя пользователя:</label>
         <input {...register("username")} />
-        {errors.username && <p>{errors.username.message}</p>}
+        {errors.username && (
+          <p style={{ color: "red" }}>{errors.username.message}</p>
+        )}
       </div>
+      <Input label="Email" register={register} errors={errors} type="email" />
       <div>
         <label htmlFor="email">Email:</label>
         <input {...register("email")} />
-        {errors.email && <p>{errors.email.message}</p>}
+        {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
       </div>
       <div>
         <label htmlFor="password">Пароль:</label>
         <input {...register("password")} />
-        {errors.password && <p>{errors.password.message}</p>}
+        {errors.password && (
+          <p style={{ color: "red" }}>{errors.password.message}</p>
+        )}
       </div>
       <div>
         <label htmlFor="confirmPassword">Подтвердите пароль:</label>
         <input {...register("confirmPassword")} />
-        {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+        {errors.confirmPassword && (
+          <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
+        )}
       </div>
       <div>
         <label htmlFor="dateOfBirth">Дата рождения</label>
-        <input {...register("dateOfBirth")} />
+        <input type="date" {...register("dateOfBirth")} />
       </div>
       <div>
         <label htmlFor="gender">Пол:</label>
@@ -63,12 +64,16 @@ const RegistrationForm = () => {
           <option value={GenderEnum.Male}>Мужской</option>
           <option value={GenderEnum.Female}>Женский</option>
         </select>
-        {errors.gender && <p>{errors.gender.message}</p>}
+        {errors.gender && (
+          <p style={{ color: "red" }}>{errors.gender.message}</p>
+        )}
       </div>
       <div>
         <label htmlFor="phoneNumber">Номер телефона:</label>
         <input {...register("phoneNumber")} />
-        {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
+        {errors.phoneNumber && (
+          <p style={{ color: "red" }}>{errors.phoneNumber.message}</p>
+        )}
       </div>
       <button type="submit">Зарегистрироваться</button>
     </form>
