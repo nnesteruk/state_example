@@ -1,7 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import "react-phone-input-2/lib/style.css";
 import { z } from "zod";
 import { GenderEnum, registrationSchema } from "../schema/RegistrationSchema";
 import Input from "./Input.component";
@@ -15,11 +13,8 @@ const RegistrationForm = () => {
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(registrationSchema) });
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const onSubmit = (data: FormValues) => {
     console.log(data);
-    setShowPassword((prev) => !prev);
     alert(`Данные отправлены: ${JSON.stringify(data)}`);
     alert(`Успешно зарегистрировано`);
   };
@@ -54,7 +49,7 @@ const RegistrationForm = () => {
         name="password"
         register={register}
         errors={errors}
-        type={showPassword ? "text" : "password"}
+        type="password"
         labelText="Пароль"
       />
       <Input
