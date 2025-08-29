@@ -1,5 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import "react-phone-input-2/lib/style.css";
 import { z } from "zod";
 import { GenderEnum, registrationSchema } from "../schema/RegistrationSchema";
 import Input from "./Input.component";
@@ -13,54 +15,68 @@ const RegistrationForm = () => {
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(registrationSchema) });
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const onSubmit = (data: FormValues) => {
     console.log(data);
-    // alert(`Данные отправлены: ${JSON.stringify(data)}`);
-    // alert(`Успешно зарегистрировано`);
+    setShowPassword((prev) => !prev);
+    alert(`Данные отправлены: ${JSON.stringify(data)}`);
+    alert(`Успешно зарегистрировано`);
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        border: "1px solid grey",
+        borderRadius: "10px",
+        padding: "20px",
+      }}
     >
-      <div>
-        <label htmlFor="username">Имя пользователя:</label>
-        <input {...register("username")} />
-        {errors.username && (
-          <p style={{ color: "red" }}>{errors.username.message}</p>
-        )}
-      </div>
-      <Input label="Email" register={register} errors={errors} type="email" />
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input {...register("email")} />
-        {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
-      </div>
-      <div>
-        <label htmlFor="password">Пароль:</label>
-        <input {...register("password")} />
-        {errors.password && (
-          <p style={{ color: "red" }}>{errors.password.message}</p>
-        )}
-      </div>
-      <div>
-        <label htmlFor="confirmPassword">Подтвердите пароль:</label>
-        <input {...register("confirmPassword")} />
-        {errors.confirmPassword && (
-          <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
-        )}
-      </div>
-      <div>
-        <label htmlFor="dateOfBirth">Дата рождения</label>
-        <input type="date" {...register("dateOfBirth")} />
-      </div>
-      <div>
-        <label htmlFor="gender">Пол:</label>
+      <Input
+        name="username"
+        register={register}
+        errors={errors}
+        type="username"
+        labelText="Имя пользователя"
+      />
+      <Input
+        name="email"
+        register={register}
+        errors={errors}
+        type="email"
+        labelText="Email"
+      />
+      <Input
+        name="password"
+        register={register}
+        errors={errors}
+        type={showPassword ? "text" : "password"}
+        labelText="Пароль"
+      />
+      <Input
+        name="confirmPassword"
+        register={register}
+        errors={errors}
+        type="password"
+        labelText="Подтверждение пароля"
+      />
+      <Input
+        name="dateOfBirth"
+        register={register}
+        errors={errors}
+        type="date"
+        labelText="Дата рождения"
+      />
+      <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+        <label htmlFor="gender" style={{ alignSelf: "flex-start" }}>
+          Пол:
+        </label>
         <select {...register("gender")} defaultValue={"Выберите пол"}>
-          <option value="Select gender" disabled>
-            Выберите пол
-          </option>
+          <option value="Select gender">Выберите пол</option>
           <option value={GenderEnum.Male}>Мужской</option>
           <option value={GenderEnum.Female}>Женский</option>
         </select>
@@ -68,13 +84,13 @@ const RegistrationForm = () => {
           <p style={{ color: "red" }}>{errors.gender.message}</p>
         )}
       </div>
-      <div>
-        <label htmlFor="phoneNumber">Номер телефона:</label>
-        <input {...register("phoneNumber")} />
-        {errors.phoneNumber && (
-          <p style={{ color: "red" }}>{errors.phoneNumber.message}</p>
-        )}
-      </div>
+      <Input
+        name="phoneNumber"
+        register={register}
+        errors={errors}
+        type="tel"
+        labelText="Номер телефона"
+      />
       <button type="submit">Зарегистрироваться</button>
     </form>
   );
