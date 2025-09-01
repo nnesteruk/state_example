@@ -1,34 +1,42 @@
-import type {
-  FieldErrors,
-  FieldValues,
-  Path,
-  UseFormRegister,
+import {
+  useController,
+  type Control,
+  type FieldValues,
+  type Path,
+  type RegisterOptions,
 } from "react-hook-form";
 
 type InputProps<T extends FieldValues> = {
   name: Path<T>;
-  labelText: string;
+  control: Control<T>;
+  labelText?: string;
   type?: string;
-  register: UseFormRegister<T>;
-  errors: FieldErrors<T>;
-};
+  rules?: RegisterOptions<T>;
+} & Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "name" | "type" | "ref" | "onChange" | "value"
+>;
 
 const Input = <T extends FieldValues>({
   name,
-  type,
+  control,
+  rules,
   labelText,
-  register,
-  errors,
+  ...inputProps
 }: InputProps<T>) => {
-  const error = errors[name]?.message as string | undefined;
+  const { field, fieldState } = useController({ name, control, rules });
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-      <label htmlFor={name} style={{ alignSelf: "flex-start" }}>
-        {labelText}:
-      </label>
-      <input type={type} {...register(name)} required />
-      {errors[name] && <p style={{ color: "red" }}>{error}</p>}
+      {labelText && (
+        <label htmlFor={name} style={{ alignSelf: "flex-start" }}>
+          {labelText}:
+        </label>
+      )}
+      <input {...field} {...inputProps} />
+      {fieldState.error && (
+        <p style={{ color: "red" }}>{fieldState.error.message}</p>
+      )}
     </div>
   );
 };
